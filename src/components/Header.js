@@ -1,7 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
-  return <div className="header">Personal Shopping List</div>;
+  return (
+    <header className="header">
+      <Link to="/" className="header-link">
+        🛒 Personal Shopping List
+      </Link>
+    </header>
+  );
 };
 
 export default Header;

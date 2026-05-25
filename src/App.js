@@ -1,66 +1,54 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AddItem } from "./components/AddItem";
 import ProductList from "./components/ProductList";
 import Header from "./components/Header";
 
-const getDatafromLS = () => {
-  const data = localStorage.getItem("Items");
-  if (data) {
-    return JSON.parse(data);
-  } else {
+const getDataFromLS = () => {
+  try {
+    const data = localStorage.getItem("Items");
+    return data ? JSON.parse(data) : [];
+  } catch {
     return [];
   }
 };
 
 function App() {
-  const [Items, setItems] = useState(getDatafromLS());
-
-  const [id, setId] = useState("");
+  const [items, setItems] = useState(getDataFromLS);
   const [title, setTitle] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
 
-  // form submit event
-  const handleAddItemSubmit = (e) => {
-    e.preventDefault();
-    // creating an object
-    const randomNumber = parseInt(Math.random() * 1000000);
-    let Item = {
-      id: randomNumber,
-      title,
-      quantity,
-      price,
-    };
-    setItems([...Items, Item]);
-    setId("");
-    setTitle("");
-    setQuantity("");
-    setPrice("");
-    alert("Product added to the list successfully");
-  };
+  const handleAddItemSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const newItem = {
+        id: Date.now(),
+        title: title.trim(),
+        quantity: quantity.trim(),
+        price: parseFloat(price),
+      };
+      setItems((prev) => [...prev, newItem]);
+      setTitle("");
+      setQuantity("");
+      setPrice("");
+    },
+    [title, quantity, price]
+  );
 
-  // delete book from LS
-  const deleteItem = (id) => {
-    const filteredItems = Items.filter((element, index) => {
-      return element.id !== id;
-    });
-    setItems(filteredItems);
-  };
+  const deleteItem = useCallback((id) => {
+    setItems((prev) => prev.filter((item) => item.id !== id));
+  }, []);
 
-  // saving data to local storage
   useEffect(() => {
-    localStorage.setItem("Items", JSON.stringify(Items));
-  }, [Items]);
+    localStorage.setItem("Items", JSON.stringify(items));
+  }, [items]);
 
   return (
-    <div
-      className="wrapper
-    "
-    >
-      <Header />
-      <Router>
+    <Router>
+      <div className="wrapper">
+        <Header />
         <Routes>
           <Route
             path="/add-item"
@@ -73,58 +61,42 @@ function App() {
                 title={title}
                 quantity={quantity}
                 price={price}
-                id={id}
-                Items={Items}
-                deleteItem={deleteItem}
-                setItems={setItems}
               />
             }
           />
-
           <Route
             path="/"
             element={
               <ProductList
-                title={title}
-                quantity={quantity}
-                price={price}
-                Items={Items}
+                items={items}
                 deleteItem={deleteItem}
                 setItems={setItems}
               />
             }
           />
-
           <Route
             path="/product-list"
             element={
               <ProductList
-                title={title}
-                quantity={quantity}
-                price={price}
-                Items={Items}
+                items={items}
                 deleteItem={deleteItem}
                 setItems={setItems}
               />
             }
           />
-
           <Route
             path="*"
             element={
               <ProductList
-                title={title}
-                quantity={quantity}
-                price={price}
-                Items={Items}
+                items={items}
                 deleteItem={deleteItem}
                 setItems={setItems}
               />
             }
           />
         </Routes>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 
