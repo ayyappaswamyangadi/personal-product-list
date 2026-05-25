@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 const ProductList = ({ items, deleteItem, setItems }) => {
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+  const totalPrice = items.reduce(
+    (sum, item) =>
+      sum + (parseFloat(item.price) || 0) * (parseFloat(item.quantity) || 0),
+    0
+  );
 
   const handleRemoveAll = () => {
     setItems([]);
