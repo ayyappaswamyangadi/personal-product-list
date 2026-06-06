@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 # live link : https://personal-product-list.herokuapp.com/
 # git live link : https://ayyappaswamyangadi.github.io/personal-product-list/
+# vercel live link : https://personal-product-list-git-master-ayyappa-swamys-projects.vercel.app/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
