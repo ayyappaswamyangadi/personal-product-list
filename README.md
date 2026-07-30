@@ -1,73 +1,95 @@
-# Getting Started with Create React App
-# live link : https://personal-product-list.herokuapp.com/
-# git live link : https://ayyappaswamyangadi.github.io/personal-product-list/
-# vercel live link : https://personal-product-list-git-master-ayyappa-swamys-projects.vercel.app/
+# 🛒 Personal Product List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple, fast shopping/product list app built with React. Add items with a quantity and price, see the running total, and manage your list — all persisted locally in your browser.
 
-## Available Scripts
+**Live demo:** [https://personal-product-list.vercel.app/](https://personal-product-list.vercel.app/)
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Add items** with a title, quantity, and price (`/add-item`)
+- **View your list** in a table with a running item count and total price (`/` or `/product-list`)
+- **Delete** individual items, or **remove all** items with a confirmation step
+- **Persistent storage** — items are saved to `localStorage`, so your list survives a page refresh
+- Client-side routing via `react-router-dom` (`HashRouter`), toast notifications on add, and an empty-state view when the list is empty
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [React](https://reactjs.org/) 17
+- [React Router](https://reactrouter.com/) 6
+- [react-icons-kit](https://www.npmjs.com/package/react-icons-kit) for icons
+- Bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
-### `npm test`
+## Project Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+src/
+├── App.js                 # Routes, state management, localStorage persistence
+├── components/
+│   ├── Header.js          # App header
+│   ├── ProductList.js     # List view, stats bar, remove-all
+│   ├── AddItem.js         # Add item form
+│   └── View.js             # Table rows + delete action
+├── App.css / index.css    # Styling
+└── index.js                # Entry point
+```
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js >= 18
+- npm
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-### `npm run eject`
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Development
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000). The page reloads automatically as you edit files.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Testing
+
+```bash
+npm test
+```
+
+Launches the test runner in interactive watch mode.
+
+### Production Build
+
+```bash
+npm run build
+```
+
+Builds an optimized, minified production bundle to the `build` folder.
+
+## Deployment
+
+This project is deployed on [Vercel](https://vercel.com/): **[https://personal-product-list.vercel.app/](https://personal-product-list.vercel.app/)**
+
+Build configuration lives in `vercel.json`:
+
+```json
+{
+  "buildCommand": "npm install --legacy-peer-deps && npm run build",
+  "outputDirectory": "build",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
+```
+
+The app also supports deployment to GitHub Pages via `gh-pages`:
+
+```bash
+npm run deploy
+```
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). See the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started) for more on available scripts, code splitting, bundle analysis, and deployment.
